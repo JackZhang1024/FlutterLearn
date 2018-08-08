@@ -1,109 +1,257 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-void main() => runApp(new MyApp());
+// https://github.com/renefloor/flutter_cached_network_image
+class MyAppBar extends StatelessWidget {
+  final Widget title;
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  MyAppBar({this.title});
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+    // TODO: implement build
+    return new Container(
+      height: 60.0,
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      decoration: new BoxDecoration(color: Colors.blue[500]),
+      child: new Row(
+        children: <Widget>[
+          new IconButton(
+              icon: new Icon(Icons.menu), tooltip: "AppBar", onPressed: null),
+          new Expanded(child: title),
+          new IconButton(
+              icon: new Icon(Icons.search), tooltip: "Search", onPressed: null)
+        ],
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class MyScaffold extends StatelessWidget {
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Material(
+      child: new Column(
+        children: <Widget>[
+          new MyAppBar(
+            title: new Text(
+              'Title',
+              style: Theme.of(context).primaryTextTheme.title,
+            ),
+          ),
+          new Expanded(
+            child: new Center(
+              child: new Text('Hello World!'),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class TutorialHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      appBar: new AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.menu),
+          onPressed: null,
+          tooltip: 'Navigation',
+        ),
+        title: new Text('Example Title'),
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.search),
+            onPressed: null,
+            tooltip: 'Search',
+          ),
+        ],
+      ),
+      body: new Center(
+        //child: new Text('Content'),
+        //child: new MyButton(),
+        child: new Counter(),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: null,
+        tooltip: 'Menu',
+        child: new Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class MyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new GestureDetector(
+      onTap: () {
+        print('Button clicked...');
+      },
+      child: new Container(
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(5.0),
+          color: Colors.lightGreen[500],
+        ),
+        child: new Center(
+          child: new Text('hello World'),
+        ),
+      ),
+    );
+  }
+}
+
+//  保存状态的Button
+class Counter extends StatefulWidget {
+  @override
+  _CounterState createState() => new _CounterState();
+}
+
+class _CounterState extends State<Counter> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _increment() {
+    // 在setState()中调用会重新调用build方法
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return new Scaffold(
-      appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: new Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug paint" (press "p" in the console where you ran
-          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-          // window in IntelliJ) to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    // TODO: implement build
+    return new Row(
+      children: <Widget>[
+//        new RaisedButton(
+//          onPressed: _increment,
+//          child: new Text('RasiseButton'),
+//        ),
+//        new Text('Counter: $_counter')
+
+        new CounterIncrementor(pressed: _increment),
+        new CounterDisplay(count: _counter)
+      ],
     );
   }
 }
+
+class CounterDisplay extends StatelessWidget {
+  final int count;
+
+  CounterDisplay({this.count});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Text('Counter $count');
+  }
+}
+
+class CounterIncrementor extends StatelessWidget {
+  final VoidCallback pressed;
+
+  CounterIncrementor({this.pressed});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new RaisedButton(
+      onPressed: pressed,
+      child: new Text('Incrementor'),
+    );
+  }
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    final appName = 'Material';
+    return new MaterialApp(
+      title: appName,
+      theme: new ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.lightBlue[800],
+        accentColor: Colors.cyan[200],
+      ),
+      home: new MyHomePage(title: appName),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  final String title;
+
+  MyHomePage({Key key, @required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(title),
+      ),
+
+//      body: new Center(
+//        child: new Container(
+//          color: Theme.of(context).accentColor,
+//          child: new Row(
+//            children: <Widget>[
+//              new Text(
+//                  'Text with a background color',
+//                  style: Theme.of(context).textTheme.title,
+//
+//              ),
+////              new Image.network('https://github.com/flutter/website/blob/master/_includes/code/layout/lakes/images/lake.jpg?raw=true'),
+//            ],
+//          ),
+//        ),
+//      ),
+
+//      body: new Image.network(
+//        'http://img02.tooopen.com/images/20160509/tooopen_sy_161967094653.jpg',
+//      ),
+
+        body: new Stack(
+          children: <Widget>[
+            new Center(child: new CircularProgressIndicator()),
+            new Center(
+              child: new FadeInImage.memoryNetwork(placeholder: kTransparentImage,
+                  image: 'http://img02.tooopen.com/images/20160509/tooopen_sy_161967094653.jpg'),
+            )
+          ],
+
+        ),
+
+
+      floatingActionButton: new Theme(
+        data: Theme.of(context).copyWith(accentColor: Colors.yellow),
+        child: new FloatingActionButton(
+          onPressed: null,
+          child: new Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
+
+void main() =>
+//    runApp(new MaterialApp(
+//      title: "MaterialApp",
+//      home: new TutorialHome(),
+//      theme: new ThemeData(
+//        brightness: Brightness.light,
+//        primaryColor: Colors.amberAccent,
+//        accentColor: Colors.lightGreen
+//      ),
+//    ));
+
+    runApp(new MyApp());
