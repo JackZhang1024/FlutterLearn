@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -38,7 +39,10 @@ class MyScaffold extends StatelessWidget {
           new MyAppBar(
             title: new Text(
               'Title',
-              style: Theme.of(context).primaryTextTheme.title,
+              style: Theme
+                  .of(context)
+                  .primaryTextTheme
+                  .title,
             ),
           ),
           new Expanded(
@@ -74,8 +78,8 @@ class TutorialHome extends StatelessWidget {
       ),
       body: new Center(
         //child: new Text('Content'),
-        //child: new MyButton(),
-        child: new Counter(),
+        child: new MyButton(),
+        //child: new Counter(),
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: null,
@@ -92,6 +96,8 @@ class MyButton extends StatelessWidget {
     // TODO: implement build
     return new GestureDetector(
       onTap: () {
+        final snackbar = new SnackBar(content: new Text('SnackBar'));
+        Scaffold.of(context).showSnackBar(snackbar);
         print('Button clicked...');
       },
       child: new Container(
@@ -220,16 +226,23 @@ class MyHomePage extends StatelessWidget {
 //        'http://img02.tooopen.com/images/20160509/tooopen_sy_161967094653.jpg',
 //      ),
 
-        body: new Stack(
-          children: <Widget>[
-            new Center(child: new CircularProgressIndicator()),
-            new Center(
-              child: new FadeInImage.memoryNetwork(placeholder: kTransparentImage,
-                  image: 'http://img02.tooopen.com/images/20160509/tooopen_sy_161967094653.jpg'),
-            )
-          ],
+      body: new Stack(
+        children: <Widget>[
+          new Center(child: new CircularProgressIndicator()),
+//            new Center(
+//              child: new FadeInImage.memoryNetwork(placeholder: kTransparentImage,
+//                  image: 'http://img02.tooopen.com/images/20160509/tooopen_sy_161967094653.jpg'),
+//            )
+          new Center(
+            child: new CachedNetworkImage(
+                placeholder: new CircularProgressIndicator(),
+                imageUrl: 'http://img02.tooopen.com/images/20160509/tooopen_sy_161967094653.jpg'),
 
-        ),
+          )
+
+        ],
+
+      ),
 
 
       floatingActionButton: new Theme(
@@ -243,15 +256,231 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-void main() =>
-//    runApp(new MaterialApp(
-//      title: "MaterialApp",
-//      home: new TutorialHome(),
-//      theme: new ThemeData(
-//        brightness: Brightness.light,
-//        primaryColor: Colors.amberAccent,
-//        accentColor: Colors.lightGreen
-//      ),
-//    ));
 
-    runApp(new MyApp());
+class MyVerticalListApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    final title = 'MyVerticalListApp';
+    return new MaterialApp(
+      title: title,
+      home: new Scaffold(
+        appBar: new AppBar(
+            title: new Text(title)
+        ),
+        body: new ListView(
+          children: <Widget>[
+            new ListTile(
+              leading: new Icon(Icons.map),
+              title: new Text('Map'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.photo),
+              title: new Text('Album'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.phone),
+              title: new Text('Phone'),
+            ),
+          ],
+
+        ),
+
+      ),
+    );
+  }
+
+}
+
+
+// 水平方向上的列表
+class MyHorizontalListApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    final title = 'HorizontalList';
+    // TODO: implement build
+    return new MaterialApp(
+      title: title,
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text(title),
+        ),
+        body: new Container(
+          height: 200.0,
+          child: new ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              new Container(
+                width: 300.0,
+                color: Colors.red,
+              ),
+              new Container(
+                width: 300.0,
+                color: Colors.blue,
+              ),
+              new Container(
+                width: 300.0,
+                color: Colors.green,
+              ),
+              new Container(
+                width: 300.0,
+                color: Colors.yellow,
+              ),
+              new Container(
+                width: 300.0,
+                color: Colors.cyan,
+              ),
+            ],
+
+          ),
+        ),
+      ),
+    );
+  }
+
+}
+
+
+// 长列表
+class LongListViewApp extends StatelessWidget {
+
+  final List<String> items;
+
+  LongListViewApp({Key key, @required this.items}) :super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new MaterialApp(
+      title: 'LongListView',
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('LongListView'),
+
+        ),
+        body: new ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return new ListTile(
+                title: new Text('${items[index]}'),
+              );
+            }
+        ),
+      ),
+
+    );
+  }
+
+}
+
+
+// 不同类型的Item
+abstract class ListItem {}
+
+class HeadingItem implements ListItem {
+  final String heading;
+
+  HeadingItem(this.heading);
+}
+
+class MessageItem implements ListItem {
+  final String sender;
+  final String body;
+
+  MessageItem(this.sender, this.body);
+}
+
+class MessageListApp extends StatelessWidget {
+
+  final List<ListItem> messages;
+
+  MessageListApp({Key key, @required this.messages}) :super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new MaterialApp(
+      title: 'MessageListApp',
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('MessageListApp'),
+        ),
+        body: new ListView.builder(itemBuilder: (context, index) {
+          final item = messages[index];
+          if (item is HeadingItem) {
+            return new ListTile(
+              title: new Text(item.heading),
+            );
+          } else if (item is MessageItem){
+            return new ListTile(
+              title: new Text(item.sender),
+              subtitle:  new Text(item.body),
+            );
+          }
+        }),
+      ),
+    );
+  }
+
+}
+
+
+// 网格GridView
+class MyGridView extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new MaterialApp(
+      title: 'GridView',
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('GridView'),
+        ),
+        body: new GridView.count(
+          crossAxisCount: 3,
+          children: new List.generate(100, (index){
+            return new Center(
+              child: new Text('Item: $index',
+                   style: Theme.of(context).textTheme.headline,
+              ),
+
+            );
+          }),
+
+        ),
+      ),
+    );
+  }
+
+}
+
+
+
+
+
+void main() =>
+    runApp(new MaterialApp(
+      title: "MaterialApp",
+      home: new TutorialHome(),
+      theme: new ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.amberAccent,
+        accentColor: Colors.lightGreen
+      ),
+    ));
+
+//runApp(new MyHorizontalListApp());
+//runApp(new LongListViewApp(
+//    items: new List<String>.generate(10000, (i) => "Item $i")));
+
+//runApp(new MessageListApp(
+//        messages: new List<ListItem>.generate(10000,
+//            (i) => i%6==0?
+//            new HeadingItem("head $i"):
+//            new MessageItem("Sender $i", "body $i")))
+//);
+
+//runApp(new MyGridView());
