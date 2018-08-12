@@ -78,8 +78,9 @@ class TutorialHome extends StatelessWidget {
       ),
       body: new Center(
         //child: new Text('Content'),
-        child: new MyButton(),
+        //child: new MyButton(),
         //child: new Counter(),
+        child: new InkButton(),
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: null,
@@ -458,8 +459,27 @@ class MyGridView extends StatelessWidget{
 }
 
 
+class InkButton extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new InkWell(
+      onTap: (){
+        final snackBar = new SnackBar(content: new Text('SnackBar'));
+        Scaffold.of(context).showSnackBar(snackBar);
+      },
+      child: new Container(
+        padding: new EdgeInsets.all(10.0),
+        child: new Text('RrippleView'),
+      ),
+
+    );
+  }
+}
 
 
+// 滑动
 
 void main() =>
     runApp(new MaterialApp(
