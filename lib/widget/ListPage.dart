@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:transparent_image/transparent_image.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
-void main() {
-  runApp(new MyApp(
-      items: new List<String>.generate(20, (index) => "Item ${index + 1}")));
-}
 
-class MyApp extends StatelessWidget {
+class ListPage extends StatelessWidget {
   final List<String> items;
 
-  MyApp({Key key, @required this.items}) : super(key: key);
+  ListPage({Key key, @required this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

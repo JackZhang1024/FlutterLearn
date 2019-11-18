@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_app/widget/ListPage.dart';
+import 'package:flutter_app/widget/ImagePage.dart';
 
 /* Flutter学习首页 */
 void main() =>
@@ -10,6 +11,10 @@ void main() =>
         primaryColor: Colors.amberAccent,
         accentColor: Colors.lightGreen
       ),
+      routes: <String, WidgetBuilder>{
+        '/widgets': (BuildContext context)=> new ListPage(items: new List<String>.generate(20, (index) => "Item ${index + 1}")),
+        '/image': (BuildContext context)=> new ImagePage(),
+      },
       home: new TutorialHome(),
     ));
 
@@ -24,7 +29,7 @@ class TutorialHome extends StatelessWidget {
           onPressed: null,
           tooltip: 'Navigation',
         ),
-        title: new Text('Example Title'),
+        title: new Text('Flutter 学习'),
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.search),
@@ -33,11 +38,76 @@ class TutorialHome extends StatelessWidget {
           ),
         ],
       ),
-      body: new Center(
-        //child: new Text('Content'),
-        //child: new MyButton(),
-        //child: new Counter(),
-        child: new InkButton(),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              onPressed: (){
+                 //Navigator.of(context).pushNamed('/widgets');
+                Navigator.of(context).pushNamed('/image');
+              },
+              child: Text(
+                '控件',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+            RaisedButton(
+              onPressed: (){
+
+              },
+              child: Text(
+                '主题',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+            RaisedButton(
+              onPressed: (){
+
+              },
+              child: Text(
+                '数据存储',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+            RaisedButton(
+              onPressed: (){
+
+              },
+              child: Text(
+                '网络',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+            RaisedButton(
+              onPressed: (){
+
+              },
+              child: Text(
+                '手势',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+            RaisedButton(
+              onPressed: (){
+
+              },
+              child: Text(
+                '动画',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+            RaisedButton(
+              onPressed: (){
+                print('按钮一');
+              },
+              child: Text(
+                '异步',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+            RaisedButton(
+              onPressed: (){
+
+              },
+              child: Text(
+                '导航',
+                style: TextStyle(fontSize: 14, color: Colors.black),),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: null,
