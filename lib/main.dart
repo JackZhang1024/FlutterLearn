@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widget/ListPage.dart';
-import 'package:flutter_app/widget/ImagePage.dart';
+import 'package:flutter_app/widget/list/list_dismiss.dart';
+import 'package:flutter_app/widget/image_page.dart';
 import 'package:flutter_app/ctrip/navigator/tab_navigator.dart';
 import 'package:flutter_app/network/network_page.dart';
 import 'package:flutter_app/async/async_page.dart';
 import 'package:flutter_app/storage/storage_page.dart';
+import 'package:flutter_app/widget/common_widget.dart';
+import 'package:flutter_app/widget/list/list_vertical.dart';
+import 'package:flutter_app/widget/list/list_horizontal.dart';
+import 'package:flutter_app/widget/list/list_expansion.dart';
+import 'package:flutter_app/widget/list/list_gridview.dart';
+import 'package:flutter_app/widget/list/list_refresh.dart';
+import 'package:flutter_app/widget/list/list_loadmore.dart';
 
 /* Flutter学习首页 */
 void main() => runApp(new MaterialApp(
@@ -21,7 +28,14 @@ void main() => runApp(new MaterialApp(
         '/ctrip': (BuildContext context) => new TabNavigator(),
         '/network': (BuildContext context) => new NetWorkPage(),
         '/async': (BuildContext context) => new AsyncPage(),
-        '/storage':(BuildContext context)=>new StoragePage()
+        '/storage': (BuildContext context) => new StoragePage(),
+        '/common_widget': (BuildContext context) => new CommonWidgetPage(),
+        '/list_vertical': (BuildContext context) => new ListVerticalPage(),
+        '/list_horizontal': (BuildContext context) => new ListHorizontalPage(),
+        '/list_expansion': (BuildContext context) => new ListExpansionPage(),
+        '/list_gridview': (BuildContext context) => new ListGridViewPage(),
+        '/list_refresh': (BuildContext context) => new ListRefreshPage(),
+        '/list_loadmore': (BuildContext context) => new ListLoadMorePage()
       },
       home: new TutorialHome(),
     ));
@@ -51,8 +65,7 @@ class TutorialHome extends StatelessWidget {
           children: <Widget>[
             RaisedButton(
               onPressed: () {
-                //Navigator.of(context).pushNamed('/widgets');
-                Navigator.of(context).pushNamed('/image');
+                Navigator.of(context).pushNamed('/common_widget');
               },
               child: Text(
                 '控件',

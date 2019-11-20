@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-
 class ListPage extends StatelessWidget {
   final List<String> items;
 
@@ -9,7 +8,6 @@ class ListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     final title = 'Dismissing Items';
     return new MaterialApp(
       title: title,
