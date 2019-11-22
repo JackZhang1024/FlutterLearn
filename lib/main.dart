@@ -12,6 +12,7 @@ import 'package:flutter_app/widget/list/list_expansion.dart';
 import 'package:flutter_app/widget/list/list_gridview.dart';
 import 'package:flutter_app/widget/list/list_refresh.dart';
 import 'package:flutter_app/widget/list/list_loadmore.dart';
+import 'package:flutter_app/channel/channel_page.dart';
 
 /* Flutter学习首页 */
 void main() => runApp(new MaterialApp(
@@ -35,7 +36,8 @@ void main() => runApp(new MaterialApp(
         '/list_expansion': (BuildContext context) => new ListExpansionPage(),
         '/list_gridview': (BuildContext context) => new ListGridViewPage(),
         '/list_refresh': (BuildContext context) => new ListRefreshPage(),
-        '/list_loadmore': (BuildContext context) => new ListLoadMorePage()
+        '/list_loadmore': (BuildContext context) => new ListLoadMorePage(),
+        '/channel': (BuildContext context) => new ChannelPage()
       },
       home: new TutorialHome(),
     ));
@@ -124,6 +126,15 @@ class TutorialHome extends StatelessWidget {
               onPressed: () {},
               child: Text(
                 '导航',
+                style: TextStyle(fontSize: 14, color: Colors.black),
+              ),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/channel');
+              },
+              child: Text(
+                'Channel',
                 style: TextStyle(fontSize: 14, color: Colors.black),
               ),
             ),
